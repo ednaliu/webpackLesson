@@ -1,4 +1,5 @@
 const path = require('path')
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   // entry:'./src/index.js',//入口文件
@@ -19,6 +20,12 @@ module.exports = {
           // limit:204800//20kb
           limit: 10240//10kb
         }
+      }
+    },
+    {
+      test: /\.(eot|ttf|svg)$/,
+      use: {
+        loader: 'file-loader',
       }
     },
     {
@@ -43,5 +50,6 @@ module.exports = {
   output: {//打包文件之后放的位置
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')//绝对路径
-  }
+  },
+  plugins: [new HtmlWebpackPlugin()]
 }
