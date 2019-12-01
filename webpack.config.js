@@ -1,11 +1,13 @@
 const path = require('path')
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   // entry:'./src/index.js',//入口文件
   'mode': 'development',//development打包的时候不会被压缩
   entry: {
     main: './src/index.js',
+    sub: './src/index.js',
   },//入口文件
   module: {
     rules: [{
@@ -36,7 +38,7 @@ module.exports = {
           'loader': 'css-loader',
           options: {
             importLoaders: 2,
-            modules:true//开启css模块化打包
+            // modules:true//开启css模块化打包
           }
         },
         'sass-loader',
@@ -48,8 +50,14 @@ module.exports = {
     ]
   },
   output: {//打包文件之后放的位置
-    filename: 'bundle.js',
+    publicPath:'http://cdn.com.cn',//打包之后可以src里面的内容可以添加
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist')//绝对路径
   },
-  plugins: [new HtmlWebpackPlugin()]
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'src/index.html'
+    }),
+    new CleanWebpackPlugin()
+  ]
 }
