@@ -1,14 +1,22 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack')
 
 module.exports = {
   // entry:'./src/index.js',//入口文件
   'mode': 'development',//development打包的时候不会被压缩
+  devtool:'cheap-module-eval-source-map',
   entry: {
     main: './src/index.js',
-    sub: './src/index.js',
+    // sub: './src/index.js',
   },//入口文件
+  devServer:{
+    contentBase:'./dist',
+    open:true,
+    hot:true,
+    hotOnly:true
+  },
   module: {
     rules: [{
       test: /\.(jpg|png|gif)$/,
@@ -31,7 +39,7 @@ module.exports = {
       }
     },
     {
-      test: /\.(css|scss)$/,
+      test: /\.scss$/,
       use: [
         'style-loader',
         {
@@ -45,12 +53,20 @@ module.exports = {
         'postcss-loader'
       ]//不可以调换顺序，如果调换则会出现错误
       // loader执行顺序是从下到上，从右到左
+    },
+    {
+      test: /\.css$/,
+      use: [
+        'style-loader',
+        'css-loader',
+        'postcss-loader'
+      ]
     }
 
     ]
   },
   output: {//打包文件之后放的位置
-    publicPath:'http://cdn.com.cn',//打包之后可以src里面的内容可以添加
+    // publicPath:'http://cdn.com.cn',//打包之后可以src里面的内容可以添加
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist')//绝对路径
   },
@@ -58,6 +74,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ]
 }

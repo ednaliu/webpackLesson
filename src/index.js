@@ -1,4 +1,12 @@
+import './style.css'
+// console.log('hello world!')
 
-var root = document.getElementById('root')
-import './index.scss'
-root.innerHTML = '<i class="iconfont">&#xea22;123</i>'
+var btn = document.createElement('button');
+btn.innerHTML = '新增';
+document.body.appendChild(btn)
+btn.onclick = function(){
+  var div = document.createElement('div')
+  div.innerHTML = 'item'
+  document.body.appendChild(div)
+}
+
