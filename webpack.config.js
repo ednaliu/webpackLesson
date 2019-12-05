@@ -6,14 +6,17 @@ const webpack = require('webpack')
 module.exports = {
   // entry:'./src/index.js',//入口文件
   'mode': 'development',//development打包的时候不会被压缩
+  // 更容易反发现哪里的错误
   devtool:'cheap-module-eval-source-map',
   entry: {
     main: './src/index.js',
     // sub: './src/index.js',
   },//入口文件
+  // 配置后改动文件，会自动在浏览器创建窗口
   devServer:{
     contentBase:'./dist',
     open:true,
+    //开启
     hot:true,
     hotOnly:true
   },
@@ -62,7 +65,6 @@ module.exports = {
         'postcss-loader'
       ]
     }
-
     ]
   },
   output: {//打包文件之后放的位置
@@ -74,7 +76,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     }),
+    // 
     new CleanWebpackPlugin(),
+    // 
     new webpack.HotModuleReplacementPlugin()
   ]
 }
