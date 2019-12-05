@@ -7,64 +7,74 @@ module.exports = {
   // entry:'./src/index.js',//入口文件
   'mode': 'development',//development打包的时候不会被压缩
   // 更容易反发现哪里的错误
-  devtool:'cheap-module-eval-source-map',
+  devtool: 'cheap-module-eval-source-map',
   entry: {
     main: './src/index.js',
     // sub: './src/index.js',
   },//入口文件
   // 配置后改动文件，会自动在浏览器创建窗口
-  devServer:{
-    contentBase:'./dist',
-    open:true,
+  devServer: {
+    contentBase: './dist',
+    open: true,
     //开启
-    hot:true,
-    hotOnly:true
+    hot: true,
+    hotOnly: true
   },
+
   module: {
-    rules: [{
-      test: /\.(jpg|png|gif)$/,
-      use: {
-        // loader:'file-loader',
-        loader: 'url-loader',
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "babel-loader",
         options: {
-          // placeholder:占位符
-          name: '[name]_[hash].[ext]',
-          outputPath: 'images/',
-          // limit:204800//20kb
-          limit: 10240//10kb
+        
         }
-      }
-    },
-    {
-      test: /\.(eot|ttf|svg)$/,
-      use: {
-        loader: 'file-loader',
-      }
-    },
-    {
-      test: /\.scss$/,
-      use: [
-        'style-loader',
-        {
-          'loader': 'css-loader',
+      },
+      {
+        test: /\.(jpg|png|gif)$/,
+        use: {
+          // loader:'file-loader',
+          loader: 'url-loader',
           options: {
-            importLoaders: 2,
-            // modules:true//开启css模块化打包
+            // placeholder:占位符
+            name: '[name]_[hash].[ext]',
+            outputPath: 'images/',
+            // limit:204800//20kb
+            limit: 10240//10kb
           }
-        },
-        'sass-loader',
-        'postcss-loader'
-      ]//不可以调换顺序，如果调换则会出现错误
-      // loader执行顺序是从下到上，从右到左
-    },
-    {
-      test: /\.css$/,
-      use: [
-        'style-loader',
-        'css-loader',
-        'postcss-loader'
-      ]
-    }
+        }
+      },
+      {
+        test: /\.(eot|ttf|svg)$/,
+        use: {
+          loader: 'file-loader',
+        }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          {
+            'loader': 'css-loader',
+            options: {
+              importLoaders: 2,
+              // modules:true//开启css模块化打包
+            }
+          },
+          'sass-loader',
+          'postcss-loader'
+        ]//不可以调换顺序，如果调换则会出现错误
+        // loader执行顺序是从下到上，从右到左
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader'
+        ]
+      }
     ]
   },
   output: {//打包文件之后放的位置

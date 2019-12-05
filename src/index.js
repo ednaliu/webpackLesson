@@ -1,3 +1,4 @@
+import "@babel/polyfill"; 
 // import './style.css'
 // // console.log('hello world!')
 
@@ -10,14 +11,19 @@
 //   document.body.appendChild(div)
 // }
 
-import counter from './counter'
-import number from './number'
-counter()
-number()
+// import counter from './counter'
+// import number from './number'
+// counter()
+// number()
 
-if(module.hot){
-    module.hot.accept('./number', ()=>{
-        document.body.removeChild(document.getElementById('number'))
-        number()
-    })
-}
+// if(module.hot){
+//     module.hot.accept('./number', ()=>{
+//         document.body.removeChild(document.getElementById('number'))
+//         number()
+//     })
+// }
+
+const arr  =  [];
+arr.map(item=>{
+    console.log(item)
+})
